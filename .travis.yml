@@ -96,4 +96,8 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; fi
 
 script:
-  - ./.travis/script.sh
+  - >
+    export -f travis_wait &&
+    export -f travis_jigger &&
+    ./.travis/script.sh ||
+    travis_terminate 1
